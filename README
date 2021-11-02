@@ -1,0 +1,34 @@
+[BEGINE] < SG Monitor startup >
+
+1. Compile
+    Make sure there is libsgm_monitor.so in the sample directory, then：
+    make - get sgm_monitor
+    make clean
+
+2. Run
+    sudo user run
+    sudo ./sgm_monitor
+
+3. Note
+    1> Can call the relevant APIs in sgm_monitor.h and link the libsgm_monitor.so dynamic library to write a customized APP.
+
+    2> API can be divided into 4 layers:
+        system info (sgm monitor version and driver version)      
+        cards info/status
+        nodes info/status/usage
+        nodes event (monitor the health of the card)
+        nodes processes/containers info/usage 
+
+    3> The threshold of event can be set through API:
+        temperature：
+            sgm_set_node_event_threshold(node, SGM_EVENT_TEMPERATURE_THRESHOLD1, 75);  temperature > 85% of design max 
+            sgm_set_node_event_threshold(nodes, SGM_EVENT_TEMPERATURE_THRESHOLD2, 95);  temperature > design max (95 degree for SG1) 
+            sgm_set_node_event_threshold(nodes, SGM_EVENT_TEMPERATURE_THRESHOLD3, 100); temperature > Tjmax (100 degree for SG1)
+        power：
+            sgm_set_node_event_threshold(nodes, SGM_EVENT_POWER_THRESHOLD1, 19);        power > 85% of design max 
+            sgm_set_node_event_threshold(nodes, SGM_EVENT_POWER_THRESHOLD2, 23);        power > design max (23W for SG1)
+        memory：
+            sgm_set_node_event_threshold(nodes, SGM_EVENT_MEMORY_THRESHOLD1, 6900);     mem usage > 85% of design max 
+            sgm_set_node_event_threshold(nodes, SGM_EVENT_MEMORY_THRESHOLD2, 7700);     mem usage > 95% of design max (8120MB for SG1)
+
+[END]
